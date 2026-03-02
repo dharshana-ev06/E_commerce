@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garuda Kart | Premium Fruits & Nuts</title>
+    <style>
+        /* --- CORE STYLES & THEME --- */
+        :root {
+            --primary: #1b4332;
+            --secondary: #2d6a4f;
+            --accent: #ffca3a;
+            --white: #ffffff;
+            --bg: #f9fbf9;
+            --dark: #121212;
+            --text-muted: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- MOBILE RESPONSIVE NAVIGATION --- */
+        nav {
+            background: var(--primary);
+            padding: 1rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+            margin-left: 15px; /* Requested Logo Spacing */
+        }
+
+        /* Hamburger Menu Logic (Pure CSS) */
+        #menu-toggle { display: none; }
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 2rem;
+        }
+
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 25px; }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--accent); }
+
+        @media (max-width: 900px) {
+            .menu-icon { display: block; }
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: var(--primary);
+                width: 100%;
+                height: auto;
+                padding: 20px 0;
+                text-align: center;
+                transition: 0.4s ease;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            }
+            #menu-toggle:checked ~ ul { left: 0; }
+            nav ul li { margin: 15px 0; }
+        }
+
+        /* --- PAGE ROUTING --- */
+        .page {
+            display: none;
+            min-height: 90vh;
+            animation: fadeIn 0.5s ease;
+        }
+        #home:target, #shop:target, #offer:target, #order:target, #contact:target { display: block; }
+        #home { display: block; }
+        :target ~ #home { display: none; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- ATTRACTIVE HOME SECTION --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 700px; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+        }
+
+        /* --- SHOP SECTION (12 PRODUCTS) --- */
+        .container { padding: 60px 8%; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: 0.3s;
+            padding-bottom: 20px;
+            border: 1px solid #eee;
+        }
+        .card:hover { transform: translateY(-8px); border-color: var(--accent); }
+        .card img { width: 100%; height: 220px; object-fit: cover; }
+        .card h3 { margin: 15px 0 5px; font-size: 1.2rem; }
+        .price { color: var(--secondary); font-weight: bold; font-size: 1.3rem; }
+
+        .buy-now {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 85%;
+            font-weight: bold;
+        }
+
+        /* --- TABLES & FORMS --- */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; background: white; }
+        th, td { padding: 15px; border-bottom: 1px solid #eee; }
+        th { background: var(--primary); color: white; text-align: left; }
+
+        .form-card { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
+
+        .offer-box { background: var(--accent); padding: 60px 20px; text-align: center; border-radius: 20px; border: 4px dashed var(--primary); }
+
+        footer { background: var(--primary); color: white; text-align: center; padding: 30px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home" class="logo">Garuda<span>Kart</span></a>
+        
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#offer">Offer</a></li>
+            <li><a href="#order">Order</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Purely Organic. <br> Freshly Picked.</h1>
+                <p>Garuda Kart brings you premium fruits and the finest selection of nuts from the world's best orchards.</p>
+                <a href="#shop" style="background: var(--accent); color: var(--primary); padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 800; display: inline-block;">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="page">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 40px;">Our Premium Collection</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://sumofyum.com/wp-content/uploads/2024/08/Roasted-Pistachios-5811WMTN1080.jpg" alt="Pistachios">
+                    <h3>Roasted Pistachios</h3><p class="price">$220.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://www.thegreenfuels.com/cdn/shop/products/Blueberrydried.jpg?v=1652686141&width=1946" alt="Blueberries">
+                    <h3>Dried Blueberries</h3><p class="price">$180.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://tse1.explicit.bing.net/th/id/OIP._FHPQS1AUETqPy3vHbOZyQHaF7?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Cashews">
+                    <h3>Salted Cashews</h3><p class="price">$200.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://nationaltoday.com/wp-content/uploads/2022/04/Medjool-Date-Day.jpg" alt="Dates">
+                    <h3>Medjool Dates</h3><p class="price">$260.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://img.freepik.com/premium-photo/almonds_121826-2238.jpg" alt="Almonds">
+                    <h3>California Almonds</h3><p class="price">$150.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://mrgdryfruits.com/wp-content/uploads/2025/04/ChatGPT-Image-Apr-18-2025-03_44_30-PM.png" alt="Walnuts">
+                    <h3>Premium Walnuts</h3><p class="price">$240.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+
+                <div class="card">
+                    <img src="https://www.lionfoodsindia.com/ast/uploads/2021/07/alphonso-mango.webp" alt="Mangoes">
+                    <h3>Alphonso Mangoes</h3><p class="price">$300.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.B5Qhot5yI8JZ7Ko-L7ayzgHaGj?w=1080&h=956&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Apples">
+                    <h3>Kashmiri Apples</h3><p class="price">$120.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.commercev3.net/cdn.countrysidecitrus.com/images/large/valencia-oranges.jpg" alt="Oranges">
+                    <h3>Valencia Oranges</h3><p class="price">$100.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.0bQcnkQBxVrI28xkFMaYAAHaDt?w=626&h=313&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Strawberries">
+                    <h3>Fresh Strawberries</h3><p class="price">$90.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.02D2Zo2wjn4LdMXZ8J2CEgHaED?w=2920&h=1600&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Pomegranates">
+                    <h3>Pomegranates</h3><p class="price">$140.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://m.media-amazon.com/images/I/81zGv3nGy9L._SL1500_.jpg" alt="Kiwi">
+                    <h3>Imported Kiwis</h3><p class="price">$160.00</p><button class="buy-now">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="offer" class="page">
+        <div class="container">
+            <div class="offer-box">
+                <h1>FESTIVE MEGA SALE</h1>
+                <p style="color: #d63031; font-weight: 800; font-size: 1.5rem;">FLAT 45% OFF</p>
+                <div style="background: white; padding: 10px 30px; border-radius: 10px; display: inline-block; margin-top: 20px; font-weight: bold;">CODE: GARUDA45</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="page">
+        <div class="container">
+            <h2>Your Order History</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Order #</th><th>Date</th><th>Status</th><th>Total</th></tr></thead>
+                    <tbody>
+                        <tr><td>#GK-4421</td><td>Mar 01, 2026</td><td style="color: green; font-weight: bold;">Delivered</td><td>$440.00</td></tr>
+                        <tr><td>#GK-4410</td><td>Feb 25, 2026</td><td style="color: orange; font-weight: bold;">Processing</td><td>$260.00</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page">
+        <div class="container">
+            <div class="form-card">
+                <h2 style="text-align: center; margin-bottom: 20px;">Contact Us</h2>
+                <form>
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea rows="5" placeholder="Your Message"></textarea>
+                    <button type="submit" class="buy-now" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Garuda Kart | Premium Quality Fruits & Nuts</p>
+    </footer>
+
+</body>
+</html>
